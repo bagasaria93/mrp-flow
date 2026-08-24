@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx -r dotenv/config db/seed.ts dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

@@ -1,57 +1,40 @@
-import { db } from '@/db'
-import { pingTable } from '@/db/schema'
-import { revalidatePath } from 'next/cache'
+import Link from 'next/link'
 
-async function addPing() {
-  'use server'
-  await db.insert(pingTable).values({
-    message: `Halo dari MRP Flow, ${new Date().toLocaleString('id-ID')}`,
-  })
-  revalidatePath('/')
-}
-
-export default async function Home() {
-  const pings = await db.select().from(pingTable).orderBy(pingTable.createdAt)
-
+export default function Home() {
   return (
-    <main style={{ maxWidth: 640, margin: '4rem auto', fontFamily: 'sans-serif' }}>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Uji Koneksi Database</h1>
-      <p style={{ color: '#666', marginTop: '0.5rem' }}>
-        Halaman ini membaca dan menulis langsung ke tabel <code>ping</code> di Neon Postgres.
+    <main className="mx-auto max-w-3xl px-4 py-16">
+      <h1 className="text-3xl font-bold text-slate-900">MRP Flow</h1>
+      <p className="mt-3 max-w-xl text-slate-600">
+        Demo alur manufaktur end-to-end: struktur BOM multi-level, MRP explosion dengan netting stok
+        per level, purchase request otomatis untuk bahan baku yang kurang, sampai approval dua
+        tingkat (Supervisor lalu Manager). Dibangun dengan Next.js, TypeScript, React, dan Postgres
+        (Drizzle ORM).
       </p>
 
-      <form action={addPing} style={{ marginTop: '1.5rem' }}>
-        <button
-          type="submit"
-          style={{
-            padding: '0.5rem 1rem',
-            background: '#111',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 6,
-            cursor: 'pointer',
-          }}
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <Link href="/bom" className="rounded-lg border border-slate-200 bg-white p-4 hover:border-slate-300">
+          <p className="font-semibold text-slate-900">Struktur BOM</p>
+          <p className="mt-1 text-sm text-slate-500">
+            Lihat pohon BOM Kursi Kayu, dari produk jadi sampai bahan baku.
+          </p>
+        </Link>
+        <Link
+          href="/production-orders"
+          className="rounded-lg border border-slate-200 bg-white p-4 hover:border-slate-300"
         >
-          Tambah Ping
-        </button>
-      </form>
-
-      <ul style={{ marginTop: '1.5rem', listStyle: 'none', padding: 0 }}>
-        {pings.length === 0 && <p style={{ color: '#999' }}>Belum ada data. Klik tombol di atas.</p>}
-        {pings.map((p) => (
-          <li
-            key={p.id}
-            style={{
-              padding: '0.75rem 1rem',
-              border: '1px solid #eee',
-              borderRadius: 6,
-              marginBottom: '0.5rem',
-            }}
-          >
-            <strong>#{p.id}</strong> {p.message}
-          </li>
-        ))}
-      </ul>
+          <p className="font-semibold text-slate-900">Production Order</p>
+          <p className="mt-1 text-sm text-slate-500">Buat order produksi dan jalankan MRP.</p>
+        </Link>
+        <Link
+          href="/purchase-requests"
+          className="rounded-lg border border-slate-200 bg-white p-4 hover:border-slate-300"
+        >
+          <p className="font-semibold text-slate-900">Purchase Request</p>
+          <p className="mt-1 text-sm text-slate-500">
+            Proses approval dua tingkat, ganti role untuk mencoba tiap sudut pandang.
+          </p>
+        </Link>
+      </div>
     </main>
   )
 }

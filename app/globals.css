@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
+/*
+ * Tema dikunci ke terang secara sengaja (tidak ikut prefers-color-scheme
+ * bawaan sistem/browser). Ini demo portofolio yang harus tampil identik
+ * di semua kondisi, tidak boleh berubah tampilan tergantung setting
+ * dark mode di browser yang membukanya.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -12,15 +18,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
