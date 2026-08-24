@@ -26,6 +26,7 @@ export async function NavBar() {
         <form action={setRole} className="flex items-center gap-2 text-sm">
           <label className="text-slate-500">Login sebagai:</label>
           <select
+            key={role}
             name="role"
             defaultValue={role}
             className="rounded-md border border-slate-300 px-2 py-1 text-slate-900"
