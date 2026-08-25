@@ -8,23 +8,24 @@ const typeLabel: Record<BomNode['type'], string> = {
 }
 
 const typeBadgeClass: Record<BomNode['type'], string> = {
-  finished_good: 'bg-teal-100 text-teal-800',
-  sub_assembly: 'bg-amber-100 text-amber-800',
-  raw_material: 'bg-slate-200 text-slate-700',
+  finished_good: 'bg-primary/10 text-primary',
+  sub_assembly: 'bg-warning/15 text-warning',
+  raw_material: 'bg-slate-100 text-slate-600',
 }
 
 /**
  * Komponen rekursif: tiap node BOM bisa punya children, dan tiap children
  * itu sendiri di-render lagi lewat <BomTreeNode> yang sama. Ini yang
  * memungkinkan pohon BOM berlapis tak terbatas ditampilkan tanpa perlu tahu
- * dulu berapa dalam levelnya.
+ * dulu berapa dalam levelnya. Garis vertikal di kiri anak-node dipakai
+ * sebagai penanda hierarki, mirip tree view di software sungguhan.
  */
 export function BomTreeNode({ node, depth = 0 }: { node: BomNode; depth?: number }) {
   return (
-    <div className={depth > 0 ? 'ml-6 mt-2' : ''}>
+    <div className={depth > 0 ? 'ml-3 border-l-2 border-slate-100 pl-4' : ''}>
       <div
         className={`flex flex-wrap items-center gap-3 rounded-lg border px-4 py-3 ${
-          depth === 0 ? 'border-slate-300 bg-white shadow-sm' : 'border-slate-200 bg-white'
+          depth === 0 ? 'border-slate-200 bg-slate-50' : 'border-slate-200/70 bg-white'
         }`}
       >
         <span
@@ -49,9 +50,13 @@ export function BomTreeNode({ node, depth = 0 }: { node: BomNode; depth?: number
         </div>
       </div>
 
-      {node.children.map((child) => (
-        <BomTreeNode key={child.productId} node={child} depth={depth + 1} />
-      ))}
+      {node.children.length > 0 && (
+        <div className="mt-2 space-y-2">
+          {node.children.map((child) => (
+            <BomTreeNode key={child.productId} node={child} depth={depth + 1} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

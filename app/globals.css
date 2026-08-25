@@ -5,17 +5,39 @@
  * bawaan sistem/browser). Ini demo portofolio yang harus tampil identik
  * di semua kondisi, tidak boleh berubah tampilan tergantung setting
  * dark mode di browser yang membukanya.
+ *
+ * Palet warna sengaja dibuat sendiri (bukan copy warna template Bootstrap
+ * admin gratisan), tapi tetap satu bahasa dengan warna netral/status yang
+ * sudah dipakai di banyak produk software modern: satu accent (indigo)
+ * yang dipakai konsisten untuk aksi utama, dan warna status yang tenang
+ * (tidak neon) supaya terasa dirancang, bukan template.
  */
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
+
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --success: #059669;
+  --info: #0891b2;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --orange: #ea580c;
+  --secondary: #64748b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-orange: var(--orange);
+  --color-secondary: var(--secondary);
+  --font-sans: var(--font-inter);
 }
 
 body {

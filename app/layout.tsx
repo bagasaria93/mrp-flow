@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { NavBar } from "@/components/NavBar";
+import { Sidebar } from "@/components/Sidebar";
+import { Topbar } from "@/components/Topbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -20,13 +17,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-slate-50">
-        <NavBar />
-        {children}
+    <html lang="id" className={`${inter.variable} h-full antialiased`}>
+      <body className="flex min-h-screen bg-background font-sans text-slate-800">
+        <Sidebar />
+        <div className="flex min-h-screen flex-1 flex-col">
+          <Topbar />
+          <main className="flex-1 p-4 md:p-6">{children}</main>
+        </div>
       </body>
     </html>
   );
